@@ -3,6 +3,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.output_parsers import StrOutputParser
 from langchain.agents import Tool, create_tool_calling_agent, AgentExecutor
 from langchain_community.chat_message_histories import SQLChatMessageHistory
+import os
 
 from modules import coin_market_cap
 from tools import api
@@ -96,8 +97,13 @@ class Agent():
         8. Change the time to WIB        
         """
          
-
-    
+        # Create database directory if it doesn't exist
+        db_dir = "data"
+        if not os.path.exists(db_dir):
+            os.makedirs(db_dir)
+        
+        self.db_path = os.path.join(db_dir, "chat_history.db")
+        
     def agent(self, user_input):
         prompt = ChatPromptTemplate.from_messages([
             ("system", self.prompt_template),
@@ -115,7 +121,7 @@ class Agent():
             agent_executor,
             lambda sid: SQLChatMessageHistory(
                 session_id = sid,
-                connection_string = "sqlite:///chat_history.db",
+                connection_string = f"sqlite:///{self.db_path}",
             ),
             input_messages_key="user_input",
             history_messages_key="history",
