@@ -3,6 +3,11 @@ from pydantic import BaseModel
 from typing import Optional
 from endpoints.chat import Agent
 import uuid
+import logging
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Crypto Assistant API",
@@ -19,7 +24,12 @@ class ChatResponse(BaseModel):
     session_id: str
     response: str
 
-agent = Agent()
+try:
+    agent = Agent()
+    logger.info("Agent initialized successfully")
+except Exception as e:
+    logger.error(f"Failed to initialize Agent: {str(e)}")
+    raise
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
@@ -41,6 +51,7 @@ async def chat(request: ChatRequest):
             response=response['output']
         )
     except Exception as e:
+        logger.error(f"Error in chat endpoint: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
