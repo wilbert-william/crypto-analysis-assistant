@@ -24,4 +24,4 @@ ENV PORT=8000
 EXPOSE ${PORT}
 
 # Command to run the application
-CMD uvicorn app:app --host 0.0.0.0 --port ${PORT} 
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port $PORT"] 
