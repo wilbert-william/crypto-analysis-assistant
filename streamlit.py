@@ -53,7 +53,7 @@ def delete_chat(chat_id):
             st.session_state.current_chat_id = list(st.session_state.chats.keys())[0]
 
 def main():
-    st.set_page_config(page_title="Product Recommendation Assistant", page_icon="💡")
+    st.set_page_config(page_title="Crypto Assistant", page_icon="💡")
 
     initialize_session_state()
 
@@ -79,7 +79,7 @@ def main():
         delete_chat(st.session_state.current_chat_id)
 
     # Main chat interface
-    st.title("Satoshi Crypto Analysis Assistant")
+    st.title("Crypto Analysis Assistant")
     current_chat = st.session_state.chats[st.session_state.current_chat_id]
     messages = current_chat["messages"]
 
