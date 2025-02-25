@@ -4,7 +4,7 @@ import uuid
 import os
 
 # API Configuration
-API_URL = os.getenv("API_URL", "https://your-railway-app-url.railway.app/chat")
+API_URL = 'https://crypto-analysis-assistant-production.up.railway.app/chat'
 
 def chat_with_api(user_message, history, session_id=None):
     payload = {
