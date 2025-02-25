@@ -19,9 +19,7 @@ COPY . .
 # Create data directory for SQLite database
 RUN mkdir -p data
 
-# Expose the port the app runs on
-ENV PORT=8000
-EXPOSE ${PORT}
+EXPOSE 8000
 
 # Command to run the application
 CMD ["python", "app.py"] 
