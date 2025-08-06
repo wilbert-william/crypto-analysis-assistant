@@ -97,7 +97,6 @@ class Agent():
         8. Change the time to WIB        
         """
          
-        # Create database directory if it doesn't exist
         db_dir = "data"
         if not os.path.exists(db_dir):
             os.makedirs(db_dir)
@@ -128,3 +127,4 @@ class Agent():
         )
 
         return agent_with_history
+
